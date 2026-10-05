@@ -26,7 +26,7 @@ var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legisla
   function esc(s){return s.replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
   if(c){
     el.innerHTML='<div class="k">Copy '+code+'</div><h1>'+esc(c.t)+'</h1>'+
-      '<p>A full sources page for this card is being posted here: every figure, the document it comes from, and when it was checked.</p>'+
+      '<p>A source page for this card is being prepared and will post here: every figure, the document it comes from, and when it was checked.</p>'+
       '<p>Until then, these are the sources printed on the card:</p>'+
       '<ul class="src">'+c.s.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ul>'+
       '<p class="m">Thank you for checking.</p>';
