@@ -12,6 +12,7 @@ main{max-width:560px;margin:0 auto}
 .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted);border-bottom:2px solid var(--ink);padding-bottom:6px}
 h1{font:600 28px/1.15 Georgia,serif;margin:18px 0 8px}
 p{margin:0 0 14px} .src{border-top:1px solid var(--rule);padding-top:12px;margin-top:20px}
+.nv{border:1px solid var(--ink);padding:10px 12px;margin:14px 0 18px;font-weight:600}
 .src li{margin:0 0 8px} .m{color:var(--muted);font-size:14px}
 </style></head><body><main id="m"></main>
 <script>
@@ -26,9 +27,11 @@ var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legisla
   function esc(s){return s.replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
   if(c){
     el.innerHTML='<div class="k">Copy '+code+'</div><h1>'+esc(c.t)+'</h1>'+
-      '<p>A source page for this card is being prepared and will post here: every figure, the document it comes from, and when it was checked.</p>'+
+      '<p class="nv">We have not yet checked this page against its sources. The sources printed on the card are listed below.</p>'+
+      '<p>A full sources page for this card is being posted here: every figure, the document it comes from, and the calculations.</p>'+
       '<p>Until then, these are the sources printed on the card:</p>'+
       '<ul class="src">'+c.s.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ul>'+
+      '<p><a href="mailto:sources@civicinteraction.org?subject='+encodeURIComponent('Report an error: '+c.t+' (copy '+code+')')+'">Report an error on this card</a></p>'+
       '<p class="m">Thank you for checking.</p>';
     document.title='Sources: '+c.t;
   } else {
