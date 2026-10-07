@@ -1,0 +1,147 @@
+{
+ "address": "https://civicinteraction.org/c/A005",
+ "card": "A",
+ "copy": "A005",
+ "title": "Prop 40: Billionaires are taxed 5%, once",
+ "printing": {
+  "id": "CP-2026-10-05-1",
+  "date": "2026-10-05",
+  "version": 1
+ },
+ "status": {
+  "state": "not_yet",
+  "since": null,
+  "by": null,
+  "line": "We have not yet checked this page against its sources. Sources and calculations are shown below."
+ },
+ "retired": null,
+ "figures": [
+  {
+   "n": 1,
+   "figure": "5%, once",
+   "means": "A one-time tax on the fortune, not a yearly one.",
+   "kind": "Quoted from the source",
+   "source": "Legislative Analyst's Office, Prop 40 analysis",
+   "source_url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "where": "Summary",
+   "search_phrase": null,
+   "retrieved": "2026-09-29",
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": [
+    "phrase"
+   ]
+  },
+  {
+   "n": 2,
+   "figure": "Only fortunes over $1 billion",
+   "means": "Net worth, measured on January 1, 2026.",
+   "kind": "Quoted from the source",
+   "source": "Legislative Analyst's Office, Prop 40 analysis",
+   "source_url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "where": "Summary and fiscal estimate",
+   "search_phrase": "over $1 billion",
+   "retrieved": "2026-09-29",
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": []
+  },
+  {
+   "n": 3,
+   "figure": "About 250 Californians",
+   "means": "The study's count of Californians above the line, as of July 1, 2026. The Legislative Analyst's Office gives no count.",
+   "kind": "Quoted from the source",
+   "source": "Boll, Saez & Zucman, NBER Working Paper 35218 (2026)",
+   "source_url": "https://www.nber.org/papers/w35218",
+   "where": null,
+   "search_phrase": null,
+   "retrieved": null,
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": [
+    "phrase",
+    "retrieved",
+    "where"
+   ]
+  },
+  {
+   "n": 4,
+   "figure": "Due in 2027; can be spread over five years, at extra cost",
+   "means": null,
+   "kind": "Quoted from the source",
+   "source": "Legislative Analyst's Office, Prop 40 analysis",
+   "source_url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "where": "Summary",
+   "search_phrase": null,
+   "retrieved": "2026-09-29",
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": [
+    "phrase"
+   ]
+  },
+  {
+   "n": 5,
+   "figure": "Generally left out: real estate, pensions and retirement accounts",
+   "means": "“Generally” is the analysis's own word.",
+   "kind": "Quoted from the source",
+   "source": "Legislative Analyst's Office, Prop 40 analysis",
+   "source_url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "where": "Summary",
+   "search_phrase": "generally would be excluded",
+   "retrieved": "2026-09-29",
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": []
+  },
+  {
+   "n": 6,
+   "figure": "90% to health care; the rest to education, food assistance and running the tax",
+   "means": "The analysis spells the number out, so a search for “90” won't find it.",
+   "kind": "Quoted from the source",
+   "source": "Legislative Analyst's Office, Prop 40 analysis",
+   "source_url": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "where": "Summary",
+   "search_phrase": "Ninety percent",
+   "retrieved": "2026-09-29",
+   "walled": false,
+   "check": "Not yet checked",
+   "missing": []
+  }
+ ],
+ "calculations": [],
+ "documents": [
+  {
+   "role": "rest_on",
+   "title": "Proposition 40 analysis",
+   "by": "Legislative Analyst's Office",
+   "kind": "agency report",
+   "year": "2026",
+   "original": "https://lao.ca.gov/BallotAnalysis/Proposition?number=40&year=2026",
+   "archived": {
+    "url": null,
+    "date": "2026-09-29"
+   },
+   "missing": [
+    "archived.url"
+   ]
+  },
+  {
+   "role": "rest_on",
+   "title": "NBER Working Paper 35218",
+   "by": "Boll, Saez & Zucman",
+   "kind": "study",
+   "year": "2026",
+   "original": "https://www.nber.org/papers/w35218",
+   "archived": {
+    "url": null,
+    "date": null
+   },
+   "missing": [
+    "archived.date",
+    "archived.url"
+   ]
+  }
+ ],
+ "corrections": []
+}

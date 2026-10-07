@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prop 40: Billionaires are taxed 5%, once · Sources</title>
+<style>
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/newsreader-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/newsreader-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2')}
+
+:root{
+  --ink:#1B1A17; --muted:#56606C; --rule:#D3DAE3; --tint:#EEF2F7; --paper:#FFFFFF;
+  --brand:#2F5E94; --brand-dark:#1F4673;
+  --amber:#8F4F08; --amber-rule:#E4D3BF; --since-on-ink:#D9D4CA;
+  --serif:Newsreader,Georgia,serif; --sans:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font:16px/1.5 var(--sans);font-variant-numeric:tabular-nums;-webkit-text-size-adjust:100%}
+body{border-top:6px solid var(--brand)}
+a{color:var(--brand);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--brand-dark);text-decoration-thickness:2px}
+.wrap{max-width:1152px;margin:0 auto;padding:22px 20px 40px}
+.logo{display:inline-block;margin-bottom:14px}
+.logo img{display:block;width:112px;height:auto}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.kicker{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid var(--brand);color:var(--brand);padding-bottom:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.kicker .copy{color:var(--muted)}
+h1{margin:16px 0 14px;font:600 31px/1.1 var(--serif)}
+.is-retired h1{color:var(--muted)}
+.h2{margin:34px 0 0;padding-top:8px;border-top:2px solid var(--brand);color:var(--brand);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.status{border:1.5px solid var(--ink);padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.status svg{flex:none;margin-top:3px}
+.status p{margin:0;font-size:15px;line-height:1.45;font-weight:600}
+.status .since{display:block;margin-top:6px;font-size:12px;color:var(--muted);font-weight:400}
+.status .tail{display:block;margin-top:6px;font-size:13px;font-weight:400}
+.status.checked{background:var(--ink);color:var(--paper)}
+.status.checked .since{color:var(--since-on-ink)}
+.status.retired{border-style:dashed}
+.newer{margin:10px 0 0;font-size:14px}
+.correction{margin-top:18px;border:1.5px solid var(--amber);padding:14px}
+.correction .lbl{color:var(--amber);font-weight:700}
+.correction .holder{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--amber-rule);font-size:14px}
+.correction dl.meta{margin-top:12px}
+.correction .was{text-decoration:line-through}
+.correction .now{font-weight:600}
+.figlist ol{list-style:none;margin:0;padding:0}
+.figlist li{border-bottom:1px solid var(--rule)}
+.figlist a{display:flex;align-items:center;gap:12px;min-height:48px;text-decoration:none;font-size:15px;color:var(--ink)}
+.figlist .n{width:22px;font-size:13px;font-weight:600;color:var(--brand)}
+.figlist .t{flex:1}
+.figlist .chev{color:var(--muted)}
+.fig{padding:18px 0 20px;border-bottom:1px solid var(--rule);scroll-margin-top:12px}
+.fig:last-child{border-bottom:0}
+.fv{margin:4px 0 6px;font:600 26px/1.15 var(--serif)}
+.fig .means{margin:0;font-size:15px}
+dl.meta{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:12px;row-gap:8px;margin:14px 0 0;font-size:14px;line-height:1.45}
+dl.meta dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted);padding-top:2px}
+dl.meta dd{margin:0}
+.q{font-family:var(--mono);font-size:13px;background:var(--tint);padding:1px 5px;border-radius:3px}
+.chk{display:flex;align-items:center;gap:6px}
+.walled{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;border:1px solid var(--muted);color:var(--muted);padding:0 5px;border-radius:3px;margin-left:6px}
+.walled-note{display:block;margin-top:4px;color:var(--muted);font-size:13px}
+.rep{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font-size:14px}
+/* G4: an inline link's hit area, 44 px at phone width, with the text flow untouched. The
+   padding grows the box and the equal negative margin gives the layout back what it took. */
+.in{padding:14px 0;margin:-14px 0}
+.calc{margin:6px 0 4px;font:14px/1.5 var(--mono);background:var(--tint);padding:8px 10px}
+.calcblock{padding:14px 0;border-bottom:1px solid var(--rule)}
+.calcblock:last-child{border-bottom:0}
+.none{margin:12px 0 0;font-size:15px}
+.quiet{color:var(--muted);font-size:14px}
+.gap{color:var(--muted)}
+.docgroup{margin-top:16px}
+.doc{padding:12px 0;border-bottom:1px solid var(--rule)}
+.doc .title{font-weight:600;font-size:15px}
+.doc .by{color:var(--muted);font-size:14px}
+.doc .links{margin-top:6px;font-size:14px}
+.doc .used{margin-top:4px;font-size:13px;color:var(--muted)}
+.doc .kind{display:none}
+.dochead{display:none}
+.hist{padding:12px 0;border-bottom:1px solid var(--rule);font-size:15px}
+.hist:last-child{border-bottom:0}
+.hist .when{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.report{padding:16px;background:var(--tint)}
+.report p{margin:0 0 10px;font-size:15px;line-height:1.45}
+.report a{display:flex;align-items:center;justify-content:center;min-height:48px;border:1.5px solid var(--brand);color:var(--brand);background:var(--paper);font-weight:600;font-size:15px;text-decoration:none}
+.cardimg{display:block;width:100%;max-width:816px;height:auto;margin-top:12px;border:1px solid var(--rule)}
+.foot{padding-top:10px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
+.foot a{color:var(--muted)}
+.summary{display:none}
+.dt{display:none}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"title" "status" "corr" "nav" "figs" "calc" "docs" "hist" "report" "card" "foot"}
+.a-title{grid-area:title} .a-status{grid-area:status} .a-corr{grid-area:corr} .a-figs{grid-area:figs}
+.a-calc{grid-area:calc} .a-docs{grid-area:docs} .a-hist{grid-area:hist} .a-card{grid-area:card}
+aside{display:contents}
+aside .figlist{grid-area:nav;margin-top:26px}
+aside .report{grid-area:report;margin-top:34px}
+aside .foot{grid-area:foot;margin-top:36px}
+.nr{max-width:560px}
+.nr h1{margin-top:22px}
+.nr p{margin:0 0 14px;font-size:16px}
+.nr .foot{margin-top:28px}
+@media (min-width:960px){
+  .wrap{padding:40px 64px 56px}
+  .logo{margin-bottom:18px}
+  .logo img{width:150px}
+  .kicker{font-size:12px}
+  h1{font-size:46px;margin:22px 0 18px;line-height:1.08}
+  .status{max-width:680px;padding:14px 18px}
+  .status p{font-size:16px}
+  .correction{max-width:680px}
+  .h2{margin-top:44px}
+  .layout{grid-template-columns:minmax(0,1fr) 300px;column-gap:56px;
+    grid-template-areas:"title rail" "status rail" "corr rail" "figs rail" "calc rail" "docs rail" "hist rail" "card rail"}
+  aside{display:flex;flex-direction:column;gap:28px;grid-area:rail;align-self:start;position:sticky;top:24px;padding-top:26px}
+  aside .figlist,aside .report,aside .foot{margin-top:0}
+  aside .figlist a{min-height:0;padding:9px 0;font-size:14px}
+  aside .figlist .chev{display:none}
+  .summary{display:block}
+  .summary dl.meta{grid-template-columns:84px minmax(0,1fr);font-size:13px;margin-top:10px}
+  .report a{min-height:44px;font-size:14px}
+  .report p{font-size:14px}
+  .foot{border-top:0;padding-top:0;flex-direction:column;gap:4px;font-size:13px}
+  .fig{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:40px;padding:22px 0 18px}
+  .fv{font-size:28px}
+  dl.meta{margin-top:0;grid-template-columns:96px minmax(0,1fr);column-gap:14px}
+  .rep{min-height:36px;font-size:13px}
+  .in{padding:0;margin:0}
+  .dochead{display:grid}
+  .dochead,.doc{grid-template-columns:minmax(0,3fr) minmax(0,1.3fr) minmax(0,2.4fr) minmax(0,1.6fr);column-gap:16px}
+  .dochead{padding:6px 0;border-bottom:1px solid var(--ink);margin-top:12px}
+  .doc{display:grid;font-size:14px}
+  .doc .links,.doc .used{margin-top:0}
+  .doc .kind{display:block}
+  .doc .kindinline{display:none}
+  .ph{display:none}
+  .dt{display:inline}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<a class="logo" href="https://civicinteraction.org"><img src="/img/ci-logo.png" width="640" height="403" alt="Civic Interaction for Democracy"></a>
+<header class="kicker"><span>Prop 40 · The measure</span><span class="copy">Copy A004</span></header>
+<div class="layout">
+<h1 class="a-title">Prop 40: Billionaires are taxed 5%, once</h1>
+<section class="a-status status" aria-label="Status">
+<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+<div>
+<p>We have not yet checked this page against its sources. Sources and calculations are shown below.</p>
+<span class="since">Status since not yet recorded</span>
+</div>
+</section>
+<section class="a-figs" aria-labelledby="h-figs">
+<h2 class="h2" id="h-figs">The figures</h2>
+<article class="fig" id="f1"><div><div class="lbl">Figure 1</div><p class="fv">5%, once</p><p class="means">A one-time tax on the fortune, not a yearly one.</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Legislative Analyst's Office, Prop 40 analysis</a> ↗</dd><dt>Where</dt><dd>Summary · search for <span class="gap">not yet recorded</span></dd><dt>Retrieved</dt><dd>29 Sep 2026</dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%201%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+<article class="fig" id="f2"><div><div class="lbl">Figure 2</div><p class="fv">Only fortunes over $1 billion</p><p class="means">Net worth, measured on January 1, 2026.</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Legislative Analyst's Office, Prop 40 analysis</a> ↗</dd><dt>Where</dt><dd>Summary and fiscal estimate · search for <span class="q">over $1 billion</span></dd><dt>Retrieved</dt><dd>29 Sep 2026</dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%202%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+<article class="fig" id="f3"><div><div class="lbl">Figure 3</div><p class="fv">About 250 Californians</p><p class="means">The study's count of Californians above the line, as of July 1, 2026. The Legislative Analyst's Office gives no count.</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://www.nber.org/papers/w35218">Boll, Saez &amp; Zucman, NBER Working Paper 35218 (2026)</a> ↗</dd><dt>Where</dt><dd><span class="gap">not yet recorded</span> · search for <span class="gap">not yet recorded</span></dd><dt>Retrieved</dt><dd><span class="gap">not yet recorded</span></dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%203%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+<article class="fig" id="f4"><div><div class="lbl">Figure 4</div><p class="fv">Due in 2027; can be spread over five years, at extra cost</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Legislative Analyst's Office, Prop 40 analysis</a> ↗</dd><dt>Where</dt><dd>Summary · search for <span class="gap">not yet recorded</span></dd><dt>Retrieved</dt><dd>29 Sep 2026</dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%204%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+<article class="fig" id="f5"><div><div class="lbl">Figure 5</div><p class="fv">Generally left out: real estate, pensions and retirement accounts</p><p class="means">“Generally” is the analysis's own word.</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Legislative Analyst's Office, Prop 40 analysis</a> ↗</dd><dt>Where</dt><dd>Summary · search for <span class="q">generally would be excluded</span></dd><dt>Retrieved</dt><dd>29 Sep 2026</dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%205%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+<article class="fig" id="f6"><div><div class="lbl">Figure 6</div><p class="fv">90% to health care; the rest to education, food assistance and running the tax</p><p class="means">The analysis spells the number out, so a search for “90” won't find it.</p></div><div><dl class="meta"><dt>Kind</dt><dd>Quoted from the source</dd><dt>Source</dt><dd><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Legislative Analyst's Office, Prop 40 analysis</a> ↗</dd><dt>Where</dt><dd>Summary · search for <span class="q">Ninety percent</span></dd><dt>Retrieved</dt><dd>29 Sep 2026</dd><dt>Check</dt><dd class="chk"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Not yet checked</dd></dl><a class="rep" href="mailto:sources@civicinteraction.org?subject=Problem%20with%20figure%206%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Report a problem with this figure</a></div></article>
+</section>
+<section class="a-calc" aria-labelledby="h-calc">
+<h2 class="h2" id="h-calc">Calculations</h2>
+<p class="none">None. Every figure on this card is taken from a source; nothing on it was computed.</p>
+</section>
+<section class="a-docs" aria-labelledby="h-docs">
+<h2 class="h2" id="h-docs">Documents · 2</h2>
+<div class="dochead lbl"><span>Document</span><span>Kind</span><span>Links</span><span>Used for</span></div>
+<div class="docgroup"><div class="lbl">What the figures rest on</div>
+<div class="doc"><div><div class="title">Proposition 40 analysis</div><div class="by">Legislative Analyst's Office · <span class="kindinline">agency report · </span>2026</div></div><div class="kind">Agency report</div><div class="links"><a class="in" href="https://lao.ca.gov/BallotAnalysis/Proposition?number=40&amp;year=2026">Original</a> ↗ · Archived 29 Sep 2026 · <span class="gap">not yet recorded</span></div><div class="used">Used for figures 1, 2, 4, 5, 6</div></div>
+<div class="doc"><div><div class="title">NBER Working Paper 35218</div><div class="by">Boll, Saez &amp; Zucman · <span class="kindinline">study · </span>2026</div></div><div class="kind">Study</div><div class="links"><a class="in" href="https://www.nber.org/papers/w35218">Original</a> ↗ · Archived <span class="gap">not yet recorded</span></div><div class="used">Used for figure 3</div></div>
+</div>
+<div class="docgroup"><div class="lbl">What they were checked against</div>
+<p class="quiet" style="margin:6px 0 0">Nothing yet. Listed here once the card is checked.</p>
+</div>
+<div class="docgroup"><div class="lbl">Looked at and set aside</div>
+<p class="quiet" style="margin:6px 0 0">None.</p>
+</div>
+</section>
+<section class="a-hist" aria-labelledby="h-hist">
+<h2 class="h2" id="h-hist">Corrections to this card</h2>
+<p class="none">None.</p>
+</section>
+<section class="a-card" aria-labelledby="h-card"><h2 class="h2" id="h-card">The printed card</h2><img class="cardimg" src="/img/card-A.jpg" width="1700" height="1100" loading="lazy" alt="The printed card: Prop 40: Billionaires are taxed 5%, once"><p class="quiet" style="margin:8px 0 0;font-size:13px">Pinch to zoom.</p></section>
+<aside>
+<nav class="figlist" aria-label="Figures on this card">
+<div class="lbl" style="padding-bottom:6px;border-bottom:1px solid var(--rule)"><span class="ph">Six figures on this card · tap one to check it</span><span class="dt">On this card</span></div><ol>
+<li><a href="#f1"><span class="n">1</span><span class="t">5%, once</span><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#f2"><span class="n">2</span><span class="t">Only fortunes over $1 billion</span><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#f3"><span class="n">3</span><span class="t">About 250 Californians</span><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#f4"><span class="n">4</span><span class="t">Due in 2027, over five years at extra cost</span><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#f5"><span class="n">5</span><span class="t">Generally left out: real estate, pensions, retirement accounts</span><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#f6"><span class="n">6</span><span class="t">90% to health care</span><span class="chev" aria-hidden="true">›</span></a></li>
+</ol></nav>
+<div class="summary"><div class="lbl" style="padding-bottom:6px;border-bottom:1px solid var(--rule)">This page</div><dl class="meta"><dt>Status</dt><dd>Not yet checked</dd><dt>Figures</dt><dd>6, none computed</dd><dt>Documents</dt><dd>2</dd><dt>Corrections</dt><dd>None</dd></dl></div>
+<section class="report" aria-label="Report a problem"><p>See something wrong on this card? Tell us what, and where you looked.</p><a href="mailto:sources@civicinteraction.org?subject=Problem%20with%20card%3A%20Prop%2040%3A%20Billionaires%20are%20taxed%205%25%2C%20once%20(copy%20A004)">Email sources@civicinteraction.org</a></section>
+<footer class="foot"><span>civicinteraction.org/c/A004</span><a class="in" href="../A004.json">Data file for this page</a></footer>
+</aside>
+</div>
+</div>
+</body>
+</html>
