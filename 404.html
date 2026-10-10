@@ -24,6 +24,10 @@ var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legisla
   if(!m && !/^\/c\//i.test(p)){ if(p!==''){ location.replace('/'); } return; }
   var el=document.getElementById('m'), code=m?(m[1].toUpperCase()+m[2]):null, c=code?CARDS[code[0]]:null;
   if(code && COUNTER_URL){ try{ navigator.sendBeacon(COUNTER_URL, code); }catch(e){} }
+  // Stay in touch (ST-1, 9 Oct 2026): exact codes that open another page, carrying the code. Only B000, the first
+  // Stay in touch batch's shared code; the letter B is the printed Prop 40 card B (B001-B010), so it is not routed.
+  var SENDS={"B000":"/stay/?c=B000"};
+  if(code && SENDS[code]){ location.replace(SENDS[code]); return; }
   function esc(s){return s.replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
   if(c){
     el.innerHTML='<div class="k">Copy '+code+'</div><h1>'+esc(c.t)+'</h1>'+
