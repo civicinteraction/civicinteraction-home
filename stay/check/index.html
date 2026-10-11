@@ -12,7 +12,11 @@
 <label class="f" for="ln">Add a link or a picture <small>(optional)</small></label><input type="url" id="ln" name="link" inputmode="url" placeholder="https://">
 <label class="file"><input type="file" name="picture" accept="image/*">Add a picture</label>
 <label class="f" for="nm">What should we call you?</label><input type="text" id="nm" name="name" autocomplete="given-name" placeholder="Your name or a nickname">
-<label class="f" for="rp">Where should we send the answer?</label><input type="text" id="rp" name="reply" placeholder="Your cell number or email" data-required>
+<p class="f" id="rq">Where should we send the answer?</p><div role="group" aria-labelledby="rq">
+<label class="f2" for="em">Email</label><input type="email" id="em" name="email" autocomplete="email" data-one-of="reach">
+<label class="f2" for="ce">Cell</label><input type="tel" id="ce" name="cell" autocomplete="tel" data-one-of="reach"></div>
+<fieldset class="pref" id="pf" hidden disabled><legend>How should we reply?</legend>
+<label class="opt"><input type="radio" name="reply_by" value="text">Text</label><label class="opt"><input type="radio" name="reply_by" value="email">Email</label><label class="opt"><input type="radio" name="reply_by" value="both" checked>Both</label></fieldset>
 <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
 <button class="btn" type="submit">Send</button>
 </form>

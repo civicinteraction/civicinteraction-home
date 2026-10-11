@@ -1,6 +1,6 @@
-/* Stay in touch pages (thread ST-1, 9 Oct 2026). One small first-party script: no cookies, no
+/* Stay in touch pages (thread ST-1, 9 Oct 2026; amendment 2, MB22, thread ST-2, 10 Oct 2026). One small first-party script: no cookies, no
    storage, no analytics, nothing loaded from anywhere else (F2).
-   - Carries the copy code (?c=B000) from the page the QR opened through every link and form (S2).
+   - Carries the copy code (?c=Q017) from the page the QR opened through every link and form (S2).
    - Checks the required fields; an empty one gets one plain line under it and nothing is sent (D).
    - Sends each form to the Stay Worker and then opens the page that follows.
    The Worker's address lives here and nowhere else. deploy.sh prints the live address; HQ pastes
@@ -78,17 +78,44 @@
     });
   }
 
+  // Amendment 2 (10 Oct, MB22, and Adam's ruling 2): the contact field is two optional fields, Email and Cell. "How should
+  // we reply?" appears only when both are filled in, and is switched off (not sent) otherwise. The Worker decides again
+  // from which fields hold something.
+  function wirePref(form) {
+    var email = form.querySelector('input[name="email"]'), cell = form.querySelector('input[name="cell"]'), box = form.querySelector(".pref");
+    if (!email || !cell || !box) return;
+    function show() {
+      var both = email.value.trim() !== "" && cell.value.trim() !== "";
+      box.hidden = !both;
+      box.disabled = !both;
+    }
+    var fields = [email, cell];
+    for (var i = 0; i < fields.length; i++) { fields[i].addEventListener("input", show); fields[i].addEventListener("change", show); }
+    show();
+  }
+
+  // The fields a person left empty: every [data-required] one, and, for a group marked data-one-of (the check form's Email
+  // and Cell: at least one), the last of the group when none of them has anything in it.
+  function findMissing(form) {
+    var missing = [], req = form.querySelectorAll("[data-required]");
+    for (var i = 0; i < req.length; i++) if (!req[i].value.trim()) missing.push(req[i]);
+    var group = form.querySelectorAll("[data-one-of]"), any = false;
+    for (var k = 0; k < group.length; k++) if (group[k].value.trim()) any = true;
+    if (group.length && !any) missing.push(group[group.length - 1]);
+    return missing;
+  }
+
   function wireForm(form) {
     wireFile(form);
+    wirePref(form);
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       clearLines(form);
-      var missing = [];
-      var req = form.querySelectorAll("[data-required]");
-      for (var i = 0; i < req.length; i++) if (!req[i].value.trim()) missing.push(req[i]);
+      var missing = findMissing(form);
       if (missing.length) {
         for (var j = 0; j < missing.length; j++) lineUnder(missing[j], LINE_EMPTY);
-        missing[0].focus();
+        var firstOne = form.querySelector("[data-one-of]");
+        (missing[0].hasAttribute("data-one-of") && firstOne ? firstOne : missing[0]).focus();
         return;
       }
       var btn = form.querySelector("button[type=submit]");

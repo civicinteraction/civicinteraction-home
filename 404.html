@@ -24,9 +24,12 @@ var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legisla
   if(!m && !/^\/c\//i.test(p)){ if(p!==''){ location.replace('/'); } return; }
   var el=document.getElementById('m'), code=m?(m[1].toUpperCase()+m[2]):null, c=code?CARDS[code[0]]:null;
   if(code && COUNTER_URL){ try{ navigator.sendBeacon(COUNTER_URL, code); }catch(e){} }
-  // Stay in touch (ST-1, 9 Oct 2026): exact codes that open another page, carrying the code. Only B000, the first
-  // Stay in touch batch's shared code; the letter B is the printed Prop 40 card B (B001-B010), so it is not routed.
-  var SENDS={"B000":"/stay/?c=B000"};
+  // Stay in touch (ST-1, 9 Oct 2026; numbered copies, Adam 11 Oct 2026): codes that open another page, carrying the code.
+  // Every Stay in touch copy is numbered Q001 up (the first print run is Q001-Q100; the first batch's shared code is retired unused). Q is not a
+  // Prop 40 card letter, so any /C/Q### (either case, in the printed range or not) opens /stay/?c=Q### and the Stay page
+  // records what arrives. SENDS stays for exact codes that need their own page; none now.
+  var SENDS={};
+  if(code && /^Q\d{3}$/.test(code)){ location.replace('/stay/?c='+code); return; }
   if(code && SENDS[code]){ location.replace(SENDS[code]); return; }
   function esc(s){return s.replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
   if(c){

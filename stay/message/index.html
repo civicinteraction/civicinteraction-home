@@ -8,7 +8,11 @@
 <form method="post" novalidate data-kind="message" data-next="/stay/sent/">
 <label class="f" for="ms">Your message</label><textarea id="ms" name="message" placeholder="A question, a thought, something that came up after we talked — anything" data-required></textarea>
 <label class="f" for="nm">What should we call you?</label><input type="text" id="nm" name="name" autocomplete="given-name" placeholder="Your name or a nickname">
-<label class="f" for="em">Want a reply? <small>(optional)</small></label><input type="text" id="em" name="reply" placeholder="Your email or cell number">
+<p class="f" id="rq">Want a reply? <small>(optional)</small></p><div role="group" aria-labelledby="rq">
+<label class="f2" for="em">Email</label><input type="email" id="em" name="email" autocomplete="email">
+<label class="f2" for="ce">Cell</label><input type="tel" id="ce" name="cell" autocomplete="tel"></div>
+<fieldset class="pref" id="pf" hidden disabled><legend>How should we reply?</legend>
+<label class="opt"><input type="radio" name="reply_by" value="text">Text</label><label class="opt"><input type="radio" name="reply_by" value="email">Email</label><label class="opt"><input type="radio" name="reply_by" value="both" checked>Both</label></fieldset>
 <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
 <button class="btn" type="submit">Send</button>
 </form>
