@@ -26,6 +26,50 @@
   try { code = cleanCode(new URLSearchParams(location.search).get("c")); } catch (e) { code = ""; }
   function withCode(path) { return code ? path + (path.indexOf("?") < 0 ? "?" : "&") + "c=" + encodeURIComponent(code) : path; }
 
+  // The one-tap sign-up page (/stay/join/; J4 and J5 of '2026-10-13 One-tap sign-up page - for Code.md', thread ST-3, 13 Oct
+  // 2026). copyOf reads the copy a code names from cleanCode's answer, so the page has no second reader of a code's shape: a
+  // Stay card's 12 Oct code K7-AT-021 gives its card letters AT and the short code AT21 (a copy at 100 or above keeps its
+  // three digits: K7-AT-100 gives AT100); a code that is already letters then digits (AT21, Q017) is its own short code.
+  // Anything else, or no code, is null.
+  function copyOf(raw) {
+    var c = cleanCode(raw), p = c.split("-"), m;
+    if (p.length === 3) return { code: c, letters: p[1], short: p[1] + (Number(p[2]) < 100 ? p[2].slice(1) : p[2]) };
+    m = /^([A-Z]+)(\d+)$/.exec(c);
+    return m ? { code: c, letters: m[1], short: c } : null;
+  }
+  // The text the button opens, from the page's wording file: "Hi Adam, sign me up (AT21)"; "Hi, sign me up (Q017)" for a copy
+  // whose card has no first name; "Hi, sign me up" with no code or one that names no copy.
+  function prefill(copy, W) {
+    if (!copy) return W.prefillNoCode;
+    var name = Object.prototype.hasOwnProperty.call(W.firstNames, copy.letters) ? W.firstNames[copy.letters] : "";
+    return (name ? W.prefillNamed.split("{name}").join(name) : W.prefillNoName).split("{code}").join(copy.short);
+  }
+  // The body as the Text us button writes it (amendment 1, M2: sms:+1...?&body=...), every character outside A-Z a-z 0-9 - _ . ~
+  // percent-encoded: the space as %20, the comma %2C, the parentheses %28 and %29.
+  function smsBody(text) {
+    return encodeURIComponent(text).replace(/[!'()*]/g, function (ch) { return "%" + ch.charCodeAt(0).toString(16).toUpperCase(); });
+  }
+  function smsHref(number, text) { return number + "?&body=" + smsBody(text); }
+  // Fills the page from STAY_JOIN_WORDING (/stay/join/wording.js), points the button at the text, and on the tap shows step 2.
+  // The tap is not stopped (no preventDefault): the phone opens the text, and step 2 is waiting when the person comes back.
+  // Nothing is sent from the page: no request, no storage (gate E4).
+  function wireJoin(root, W) {
+    var els = root.querySelectorAll("[data-w]");
+    for (var i = 0; i < els.length; i++) {
+      var v = W[els[i].getAttribute("data-w")];
+      if (Object.prototype.toString.call(v) === "[object Array]") {
+        els[i].textContent = "";
+        for (var j = 0; j < v.length; j++) { if (j) els[i].appendChild(document.createElement("br")); els[i].appendChild(document.createTextNode(v[j])); }
+      } else els[i].textContent = v;
+    }
+    document.title = W.heading + " \u00b7 Civic Interaction";
+    var btn = root.querySelector("a[data-sms]"), one = root.querySelector('[data-step="1"]'), two = root.querySelector('[data-step="2"]');
+    btn.setAttribute("href", smsHref(btn.getAttribute("href").split("?")[0], prefill(copyOf(code), W)));
+    function step(n) { one.hidden = n !== 1; two.hidden = n !== 2; }
+    btn.addEventListener("click", function () { step(2); });
+    root.querySelector("[data-back]").addEventListener("click", function (ev) { ev.preventDefault(); step(1); });
+  }
+
   function carryLinks() {
     if (!code) return;
     var links = document.querySelectorAll('a[href^="/stay/"]');
@@ -149,6 +193,8 @@
   }
 
   function start() {
+    var join = document.querySelector("[data-join]");
+    if (join && window.STAY_JOIN_WORDING) wireJoin(join, window.STAY_JOIN_WORDING);
     carryLinks();
     var forms = document.querySelectorAll("form[data-kind]");
     for (var i = 0; i < forms.length; i++) wireForm(forms[i]);

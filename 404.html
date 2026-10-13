@@ -15,6 +15,7 @@ p{margin:0 0 14px} .src{border-top:1px solid var(--rule);padding-top:12px;margin
 .nv{border:1px solid var(--ink);padding:10px 12px;margin:14px 0 18px;font-weight:600}
 .src li{margin:0 0 8px} .m{color:var(--muted);font-size:14px}
 </style></head><body><main id="m"></main>
+<script src="/stay/routes.js"></script>
 <script>
 // Fill in after the Worker is created, e.g. 'https://ci-opens.yourname.workers.dev/open'. Empty = no counting.
 var COUNTER_URL='';
@@ -40,10 +41,10 @@ function parseCode(path){
   var p=String(path||'').replace(/\/+$/,''), m=p.match(/^\/c\/([^\/]+)$/i), s, x;
   if(!m) return null;
   s=m[1].replace(/-/g,'').toUpperCase();
-  if((x=s.match(/^([A-Z])(\d{3})$/))) return {shape:'5 Oct', code:x[1]+x[2], letters:x[1]};
-  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJ-NP-Z])(\d{3})$/))) return {shape:'6 Oct', code:x[1]+x[2]+x[3], letters:x[2]};
-  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJKMNP-Z]{2,})(\d{3})$/))) return {shape:'12 Oct', code:x[1]+'-'+x[2]+'-'+x[3], letters:x[2]};
-  if((x=s.match(/^([A-HJKMNP-Z]{2,})(\d{2})$/))) return {shape:'Stay short', code:x[1]+x[2], letters:x[1]};
+  if((x=s.match(/^([A-Z])(\d{3})$/))) return {shape:'5 Oct', code:x[1]+x[2], letters:x[1], num:x[2]};
+  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJ-NP-Z])(\d{3})$/))) return {shape:'6 Oct', code:x[1]+x[2]+x[3], letters:x[2], num:x[3]};
+  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJKMNP-Z]{2,})(\d{3})$/))) return {shape:'12 Oct', code:x[1]+'-'+x[2]+'-'+x[3], letters:x[2], num:x[3]};
+  if((x=s.match(/^([A-HJKMNP-Z]{2,})(\d{2})$/))) return {shape:'Stay short', code:x[1]+x[2], letters:x[1], num:x[2]};
   return null;
 }
 // CC2: 12 Oct card letters to this page's one-letter cards, matched by title to the 5 Oct register (Adam confirmed the
@@ -52,18 +53,31 @@ var LETTERS={"AA":"A","AB":"B","AC":"C","AD":"D","AF":"F","AH":"H","AJ":"J","AP"
 // CC8: card letters of each volunteer's Stay in touch card (the register names whose); their codes, K7-AT-001 or the short
 // AT01, open /stay/?c=<the code>.
 var STAY_CARDS={"AT":1};
+// J7 (one-tap sign-up, thread ST-3, 13 Oct 2026): which Stay page a Stay code opens, read from the routing table
+// /stay/routes.js (STAY_ROUTES, loaded by the script tag above this one). Only the two Stay routes below call it, so a
+// line can never move a card page's code. A code in no line, or a table that did not load (GitHub Pages answers a
+// missing file with this page, which is not a script), opens /stay/ as before. The lower of two matching lines wins.
+function stayPage(k){
+  var t=typeof STAY_ROUTES==='string'?STAY_ROUTES:'', go='/stay/', n=Number(k.num);
+  t.split('\n').forEach(function(line){
+    var w=line.trim().split(/\s+/), r=w.length===2&&w[0].toUpperCase().match(/^([A-Z]+)(\d+)(?:-([A-Z]+)(\d+))?$/);
+    if(!r || r[1]!==k.letters || (r[3]!==undefined && r[3]!==r[1])) return;
+    if(n>=Number(r[2]) && n<=Number(r[4]===undefined?r[2]:r[4])) go=w[1]==='join'?'/stay/join/':w[1]==='landing'?'/stay/':go;
+  });
+  return go;
+}
 (function(){
   var p=location.pathname.replace(/\/+$/,''), k=parseCode(p);
   if(!k && !/^\/c\//i.test(p)){ if(p!==''){ location.replace('/'); } return; }
   var el=document.getElementById('m'), code=k?k.code:null, page=k?(k.shape==='12 Oct'?LETTERS[k.letters]:k.shape==='Stay short'?null:k.letters):null, c=page?CARDS[page]:null;
   if(code && COUNTER_URL){ try{ navigator.sendBeacon(COUNTER_URL, code); }catch(e){} }
-  if(k && (k.shape==='12 Oct' || k.shape==='Stay short') && STAY_CARDS[k.letters]){ location.replace('/stay/?c='+code); return; }
+  if(k && (k.shape==='12 Oct' || k.shape==='Stay short') && STAY_CARDS[k.letters]){ location.replace(stayPage(k)+'?c='+code); return; }
   // Stay in touch (ST-1, 9 Oct 2026; numbered copies, Adam 11 Oct 2026): codes that open another page, carrying the code.
   // Every Stay in touch copy is numbered Q001 up (the first print run is Q001-Q100; the first batch's shared code is retired unused). Q is not a
   // Prop 40 card letter, so any /C/Q### (either case, in the printed range or not) opens /stay/?c=Q### and the Stay page
   // records what arrives. SENDS stays for exact codes that need their own page; none now.
   var SENDS={};
-  if(code && /^Q\d{3}$/.test(code)){ location.replace('/stay/?c='+code); return; }
+  if(code && /^Q\d{3}$/.test(code)){ location.replace(stayPage(k)+'?c='+code); return; }
   if(code && SENDS[code]){ location.replace(SENDS[code]); return; }
   function esc(s){return s.replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
   if(c){
