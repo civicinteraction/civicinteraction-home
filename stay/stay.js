@@ -15,9 +15,12 @@
 
   // The code as carried: letters and digits only, at most 8, upper case. A code nobody printed is
   // still carried (the Worker marks it "not recognized"); only the shape is cleaned here.
+  // Card copy codes (CC8, 12 Oct 2026): a 12 Oct code is carried hyphenated, K7-AT-001, and not cut at 8, exactly as the
+  // Worker's normCode stores it (gate CC holds the two to the same answers).
   function cleanCode(raw) {
-    var c = String(raw || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8);
-    return c;
+    var s = String(raw || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 20);
+    var x = !/^TEST/.test(s) && s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJKMNP-Z]{2,})(\d{3})$/);
+    return x ? x[1] + "-" + x[2] + "-" + x[3] : s.slice(0, 8);
   }
   var code = "";
   try { code = cleanCode(new URLSearchParams(location.search).get("c")); } catch (e) { code = ""; }

@@ -19,11 +19,45 @@ p{margin:0 0 14px} .src{border-top:1px solid var(--rule);padding-top:12px;margin
 // Fill in after the Worker is created, e.g. 'https://ci-opens.yourname.workers.dev/open'. Empty = no counting.
 var COUNTER_URL='';
 var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legislative Analyst's Office, Prop 40 analysis (2026); Boll, Saez & Zucman, NBER Working Paper 35218 (2026), for the count"]}, "B": {"t": "Current taxes, compared to wealth", "s": ["Balkir, Saez, Yagan & Zucman, IRS Statistics of Income (2024, updated Feb. 2025), Table 1 — shares computed; ITEP, Who Pays? (2024)"]}, "C": {"t": "Who owns the wealth", "s": ["Realtime Inequality (Blanchet, Saez & Zucman), 1990–2026"]}, "D": {"t": "A billion is more than you think", "s": ["Federal Reserve, Survey of Consumer Finances (2022); Forbes 400 (Sept. 2026); Boll, Saez & Zucman (2026), for California residence"]}, "E": {"t": "Money does much more for those who have less", "s": ["Dwyer & Dunn, \"Wealth redistribution promotes happiness,\" PNAS (2022)"]}, "F": {"t": "Poverty in California", "s": ["PPIC, California Poverty Measure (2024); UC Berkeley Labor Center & UCLA (Feb. 2026); LAO (2026); Boll, Saez & Zucman, NBER (2026)"]}, "G": {"t": "The claim: “They'll leave.”", "s": ["LAO (2026); Hoover Institution (2026); Boll, Saez & Zucman, NBER (2026)"]}, "H": {"t": "Who's for it, who's against it", "s": ["Newsweek (June 2026); Ballotpedia News (June 2026); Truthdig (Sept. 2026)"]}, "N": {"t": "Who's fighting the tax, and what they'd owe", "s": ["Cal-Access (Building a Better California; Golden State Promise); Forbes 400 (Sept. 2026); LAO, Prop 40 analysis"]}, "P": {"t": "While we've been talking", "s": ["Forbes 400 (2024, 2026); Cal-Access (Building a Better California); Federal Reserve, Survey of Consumer Finances (2022)."]}, "J": {"t": "How billionaires avoid taxes — The law: 20% vs. 37%", "s": ["Front: Federal Reserve, Distributional Financial Accounts (2026); ProPublica, \"The Secret IRS Files\" (2021)", "Back (How billionaires evade taxes — The secret account): Alstadsæter, Johannesen & Zucman, American Economic Review (2019); EU Tax Observatory, Global Tax Evasion Report (2024)"]}, "K": {"t": "How billionaires avoid taxes — The shelter", "s": ["Front: Senate Permanent Subcommittee on Investigations (July 2014); US Justice Department (Aug. 2005)", "Back (How billionaires evade taxes — The unpaid bill): US Treasury (Sept. 2021); GAO-22-104960 (2022); Treasury Inspector General for Tax Administration (Aug. 2026)"]}, "L": {"t": "Three measures, one winner", "s": ["Front: LAO (2026); Attorney General, Prop 42 summary (Feb. 2026); Cal-Access (Props 40–42, through Sept. 19)", "Back (Two fights, a few checkbooks): FEC (Leading the Future, C00916114); Cal-Access (Building a Better California, 1486767); Axios (May 8, 2026)"]}, "M": {"t": "Richer than Rockefeller", "s": ["Klepper & Gunther, The Wealthy 100 (1996); Forbes 400 (1999, 2026); Minneapolis Fed, CPI since 1800; BEA (GDP, 2026:Q2)"]}};
+// Copy codes (CC1-CC3, CC7, CC8; thread CC-1, 12 Oct 2026, under Adam's rule '2026-10-12 Card copy codes - for Code.md').
+// parseCode reads a /c/ or /C/ path by its shape alone, after dropping hyphens and case; it never guesses.
+//   shape    what is left after hyphens and case are dropped   example          recorded and shown as
+//   5 Oct    one letter, three digits                          A001, Q017       A001
+//   6 Oct    two random, one card letter, three digits         K7A004           K7A004
+//   12 Oct   two random, two or more card letters, 3 digits    K7AB007          K7-AB-007
+//   Stay     two or more card letters, two digits              AT01             AT01
+//   anything else is malformed: not routed, not recorded, and it draws the not-posted page.
+// Random characters: capitals and digits without 0, O, 1, I, L. 12 Oct card letters: capitals without I, L, O, any number
+// of them from two (AAA001 routes, so the change after ZZ needs no release). 6 Oct card letter: one capital without I and O
+// (the 5 Oct letters, where L is a card). The 5 Oct, 6 Oct and 12 Oct shapes are 4, 6 and 7 or more characters long and end
+// in a letter and three digits; the Stay short shape (Adam's exception of 12 Oct: a Stay in touch card's copies print
+// /c/AT01, card letters and a two-digit copy, no random pair) ends in a letter and two digits: no code reads two ways.
+// Where each lands: 5 Oct and 6 Oct by their one letter in CARDS; 12 Oct by its card letters, through LETTERS to a CARDS
+// entry, or through STAY_CARDS to /stay/?c=<full code>; card letters in neither draw the not-posted page with the code.
+// Q### (5 Oct shape) opens /stay/ as before. A Stay short code opens /stay/?c=AT01 only when its letters are in STAY_CARDS;
+// any other card's short code draws the not-posted page, which records it.
+function parseCode(path){
+  var p=String(path||'').replace(/\/+$/,''), m=p.match(/^\/c\/([^\/]+)$/i), s, x;
+  if(!m) return null;
+  s=m[1].replace(/-/g,'').toUpperCase();
+  if((x=s.match(/^([A-Z])(\d{3})$/))) return {shape:'5 Oct', code:x[1]+x[2], letters:x[1]};
+  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJ-NP-Z])(\d{3})$/))) return {shape:'6 Oct', code:x[1]+x[2]+x[3], letters:x[2]};
+  if((x=s.match(/^([A-HJKMNP-Z2-9]{2})([A-HJKMNP-Z]{2,})(\d{3})$/))) return {shape:'12 Oct', code:x[1]+'-'+x[2]+'-'+x[3], letters:x[2]};
+  if((x=s.match(/^([A-HJKMNP-Z]{2,})(\d{2})$/))) return {shape:'Stay short', code:x[1]+x[2], letters:x[1]};
+  return null;
+}
+// CC2: 12 Oct card letters to this page's one-letter cards, matched by title to the 5 Oct register (Adam confirmed the
+// method, 12 Oct). Letters not here go to the not-posted page, which records the code. AE, AG, AK, AM, AN, AR, AS: no page yet.
+var LETTERS={"AA":"A","AB":"B","AC":"C","AD":"D","AF":"F","AH":"H","AJ":"J","AP":"L","AQ":"M"};
+// CC8: card letters of each volunteer's Stay in touch card (the register names whose); their codes, K7-AT-001 or the short
+// AT01, open /stay/?c=<the code>.
+var STAY_CARDS={"AT":1};
 (function(){
-  var p=location.pathname.replace(/\/+$/,''), m=p.match(/^\/c\/([A-Za-z])(\d{3})$/i);
-  if(!m && !/^\/c\//i.test(p)){ if(p!==''){ location.replace('/'); } return; }
-  var el=document.getElementById('m'), code=m?(m[1].toUpperCase()+m[2]):null, c=code?CARDS[code[0]]:null;
+  var p=location.pathname.replace(/\/+$/,''), k=parseCode(p);
+  if(!k && !/^\/c\//i.test(p)){ if(p!==''){ location.replace('/'); } return; }
+  var el=document.getElementById('m'), code=k?k.code:null, page=k?(k.shape==='12 Oct'?LETTERS[k.letters]:k.shape==='Stay short'?null:k.letters):null, c=page?CARDS[page]:null;
   if(code && COUNTER_URL){ try{ navigator.sendBeacon(COUNTER_URL, code); }catch(e){} }
+  if(k && (k.shape==='12 Oct' || k.shape==='Stay short') && STAY_CARDS[k.letters]){ location.replace('/stay/?c='+code); return; }
   // Stay in touch (ST-1, 9 Oct 2026; numbered copies, Adam 11 Oct 2026): codes that open another page, carrying the code.
   // Every Stay in touch copy is numbered Q001 up (the first print run is Q001-Q100; the first batch's shared code is retired unused). Q is not a
   // Prop 40 card letter, so any /C/Q### (either case, in the printed range or not) opens /stay/?c=Q### and the Stay page
@@ -42,7 +76,8 @@ var CARDS={"A": {"t": "Prop 40: Billionaires are taxed 5%, once", "s": ["Legisla
       '<p class="m">Thank you for checking.</p>';
     document.title='Sources: '+c.t;
   } else {
-    el.innerHTML='<div class="k">Sources</div><h1>This card&#8217;s page isn&#8217;t posted yet</h1><p>Please check back soon.</p>';
+    el.innerHTML='<div class="k">Sources</div><h1>This card&#8217;s page isn&#8217;t posted yet</h1><p>Please check back soon.</p>'+
+      (k && k.shape!=='5 Oct'?'<p class="m">Copy '+esc(code)+'</p>':'');
   }
 })();
 </script></body></html>
